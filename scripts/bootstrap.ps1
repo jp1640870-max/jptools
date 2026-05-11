@@ -1,4 +1,4 @@
-$rawBase = "https://raw.githubusercontent.com/JproDev/jptools/main/scripts/"
+$rawBase = "https://raw.githubusercontent.com/jp1640870-max/jptools/main/scripts/"
 
 $opciones = @{
     "1" = @{ nombre = "Inventario de hardware (copiar al portapapeles)"; archivo = "Get-HardwareInventory.ps1" }
