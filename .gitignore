@@ -1,0 +1,6 @@
+screenshots/
+Screenshots_*/
+*.png
+*.bmp
+*.log
+.DS_Store
