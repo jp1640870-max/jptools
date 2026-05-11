@@ -8,11 +8,11 @@ $opciones = @{
 
 do {
     Clear-Host
-    Write-Host "|_   _|  __ \__   __\ \ / /|__   __|  ____|" -ForegroundColor Green
-    Write-Host "   | | | |__) | | |   \ V /    | |  | |__  " -ForegroundColor Green
-    Write-Host "   | | |  ___/  | |    > <     | |  |  __| " -ForegroundColor Green
-    Write-Host "  _| |_| |      | |   / . \    | |  | |____" -ForegroundColor Green
-    Write-Host " |_____|_|      |_|  /_/ \_\   |_|  |______|" -ForegroundColor Green
+    Write-Host "       ______  ______            __     " -ForegroundColor Green
+    Write-Host "      / / __ \/_  __/___  ____  / /____" -ForegroundColor Green
+    Write-Host " __  / / /_/ / / / / __ \/ __ \/ / ___/" -ForegroundColor Green
+    Write-Host "/ /_/ / ____/ / / / /_/ / /_/ / (__  ) " -ForegroundColor Green
+    Write-Host "\____/_/     /_/  \____/\____/_/____/  " -ForegroundColor Green
     Write-Host ""
     Write-Host "               [ PowerShell Toolkit ]" -ForegroundColor Cyan
     Write-Host ""
