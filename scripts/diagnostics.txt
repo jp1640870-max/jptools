@@ -1,0 +1,140 @@
+107 checks organizados en 13 módulos, con 35 auto-fixes disponibles. Cada check muestra ✓ (OK), ⚠ (Advertencia) o ✗ (Fallo).
+🔍 Los 13 Módulos de Diagnóstico
+1. 🖥 SISTEMA (9 checks)
+Qué revisa	Problema que detecta
+Marca, modelo, serial	—
+SO + versión + build	SO desactualizado
+Dominio	❌ No unido al dominio corporativo
+BIOS/UEFI versión	Firmware antiguo
+Último reinicio	⚠ Más de 30 días sin reiniciar
+Hostname	—
+Auto-fix: Ofrece reiniciar si hay >30 días de uptime.
+2. 🔌 ENERGÍA (6 checks)
+Qué revisa	Problema que detecta
+Plan de energía activo	⚠ En "Ahorrador" estando conectado
+Adaptador CA	⚠ En batería sin cargador
+Carga actual (%)	—
+Salud de batería	⚠ Desgaste >20% (salud <80%)
+Ciclos de carga	⚠ >500 ciclos
+Tiempo restante	—
+Auto-fix: Cambia a plan "Alto rendimiento", programa reemplazo de batería.
+3. 🌐 RED CORPORATIVA (12 checks)
+Qué revisa
+Adaptadores y velocidad
+Configuración IP (DHCP/estática)
+Ping a gateway
+Resolución DNS
+Internet
+Hora sincronizada
+Perfil de red
+VPN SonicWall
+WiFi señal
+Velocidad Internet
+Auto-fix:
+- ipconfig /renew + /flushdns
+- Cambiar DNS a 8.8.8.8 temporalmente
+- w32tm /resync
+- Cambiar perfil de red a Privado
+- Abrir SonicWall VPN
+4. 💾 RENDIMIENTO (8 checks)
+Qué revisa	Problema que detecta
+CPU %	⚠ >80%
+RAM (GB usados / %)	❌ >92% / ⚠ >85%
+Procesos top por CPU/RAM	Muestra los 5 más pesados
+Total procesos activos	⚠ >200 procesos
+Crypto-miners	❌ Proceso con CPU >1000s + nombre sospechoso
+Tiempo de actividad	⚠ >30 días
+Auto-fix: Pregunta uno por uno si cerrar procesos pesados. Mata procesos mineros.
+5. 💽 DISCO (10 checks)
+Qué revisa
+Modelo, tipo (SSD/HDD), tamaño
+SMART HealthStatus
+Espacio libre por partición
+Archivos temporales
+BitLocker
+Cola de disco
+Auto-fix: Ejecuta cleanmgr, limpia temporales, habilita BitLocker, sugiere respaldo.
+6. 🔥 PROCESADOR (7 checks)
+Qué revisa	Problema que detecta
+Modelo, núcleos, hilos	—
+Velocidad máxima vs actual	—
+Temperatura	⚠ >60°C / ❌ >80°C (throttling)
+Throttling térmico	Rendimiento reducido
+Carga por núcleo	—
+Auto-fix: No aplica (solo diagnóstico).
+7. 🧠 MEMORIA RAM (6 checks)
+Qué revisa
+Total GB y módulos
+Velocidad, fabricante por slot
+RAM usable vs instalada
+Errores WHEA (EventID 20)
+Uso actual %
+Auto-fix: Ejecuta mdsched.exe (diagnóstico de memoria de Windows).
+8. 🛡 SEGURIDAD (8 checks)
+Qué revisa
+Windows Defender
+Firewall (3 perfiles)
+TPM
+Secure Boot
+UAC
+AV de terceros (McAfee, etc.)
+Auto-fix: Activa Defender, firewall, UAC. Actualiza firmas.
+9. 🛠 SISTEMA OPERATIVO (7 checks)
+Qué revisa
+Última actualización
+Apagados inesperados (EventID 41, 6008)
+Servicios automáticos detenidos
+Windows Update service
+SFC (corrupción en CBS.log)
+Auto-fix: Abre Windows Update, abre Event Viewer, inicia servicios, ejecuta sfc /scannow.
+10. 📱 APLICACIONES CORPORATIVAS (8 checks)
+Qué revisa	Problema que detecta
+Microsoft 365 / Office	⚠ No instalado / ⚠ No activado
+Outlook OST	⚠ >10 GB (Outlook lento)
+Microsoft Teams	⚠ No instalado
+OneDrive	⚠ No ejecutándose
+VPN SonicWall	❌ No instalado (necesario para remoto)
+Impresoras instaladas	⚠ Sin impresora default
+Print Spooler	❌ Detenido
+Auto-fix: Abre activación de Office, archivado de Outlook, inicia OneDrive, inicia Spooler.
+11. 👤 USUARIO (6 checks)
+Qué revisa	Problema que detecta
+Tipo de usuario	⚠ Es Administrador local (riesgo)
+Tamaño del perfil	⚠ >5 GB
+Unidades de red mapeadas	⚠ Sin unidades
+Contraseña	⚠ Próxima a expirar (<5 días)
+RDP	⚠ Habilitado sin necesidad
+Auto-fix: Deshabilita RDP, avisa sobre contraseña próxima a expirar.
+12. ⚠ MALAS PRÁCTICAS (7 checks)
+Qué revisa
+DNS personalizado
+Software no autorizado
+Procesos con alto CPU sostenido
+Dispositivos USB en historial
+Blacklist incluida: miners, torrents, nordvpn/expressvpn, teamviewer/anydesk, steam, spotify, telegram, whatsapp.
+Auto-fix: Restaura DNS a DHCP.
+13. 🌐 VELOCIDAD DE INTERNET (1 check)
+Qué revisa
+Download ~10MB desde Cloudflare
+📊 Reporte HTML Generado
+Al finalizar se genera automáticamente:
+%TEMP%\JPTOOLS_Diagnostics\Diagnostico_NOMBREPC_20260514_143022.html
+Incluye:
+- ✅ 4 tarjetas de resumen (OK / Advertencias / Fallos / Auto-fixes)
+- 📁 Paneles colapsables por categoría (uno para cada módulo)
+- 🎨 Filas coloreadas por estado (verde/amarillo/rojo)
+- 📋 Copia al portapapeles del resumen en texto plano
+🔧 Resumen de Auto-Fixes
+Categoría	Fixes disponibles
+Sistema	Reiniciar equipo
+Energía	Cambiar plan, programar reemplazo batería
+Red	Renovar IP, flush DNS, cambiar DNS, resync hora, cambiar perfil, abrir VPN
+Rendimiento	Cerrar procesos, matar miners
+Disco	Cleanmgr, limpiar temp, habilitar BitLocker, respaldar
+Memoria	Ejecutar mdsched.exe
+Seguridad	Activar Defender/firewall/UAC, actualizar firmas
+SO	Abrir Windows Update/Event Viewer, iniciar servicios, SFC
+Apps	Abrir activación Office/archivado Outlook, iniciar OneDrive/Spooler
+Usuario	Deshabilitar RDP
+Malas prácticas	Restaurar DNS a DHCP
+Total: 35 auto-fixes posibles
