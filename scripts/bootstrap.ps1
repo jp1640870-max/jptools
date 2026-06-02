@@ -4,6 +4,7 @@ $opciones = @{
     "1" = @{ nombre = "Inventario de hardware (copiar al portapapeles)"; archivo = "Get-HardwareInventory.ps1" }
     "2" = @{ nombre = "Revisión CallCenter (herramientas + diagnostico)"; archivo = "Invoke-CallCenterReview.ps1" }
     "3" = @{ nombre = "Instalar GLPI Agent"; archivo = "Install-GLPI-Agent.ps1" }
+    "4" = @{ nombre = "Instalar OCS Agent"; archivo = "Install-OCS-Agent.ps1" }
     "5" = @{ nombre = "Diagnóstico completo de equipo (12 categorías)"; archivo = "Invoke-ComputerDiagnostic.ps1" }
 }
 
@@ -21,8 +22,9 @@ do {
     Write-Host "1. Inventario de hardware (copiar al portapapeles)" -ForegroundColor White
     Write-Host "2. Revisión CallCenter (herramientas + diagnostico)" -ForegroundColor White
     Write-Host "3. Instalar GLPI Agent" -ForegroundColor White
-    Write-Host "4. Salir" -ForegroundColor White
+    Write-Host "4. Instalar OCS Agent" -ForegroundColor White
     Write-Host "5. Diagnóstico completo de equipo (salud, rendimiento, seguridad)" -ForegroundColor Cyan
+    Write-Host "6. Salir" -ForegroundColor White
     Write-Host ""
     $opcion = Read-Host "Selecciona una opcion"
 
@@ -38,10 +40,10 @@ do {
         }
         Write-Host "`nPresiona cualquier tecla para volver al menu..." -ForegroundColor Gray
         $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-    } elseif ($opcion -eq "4") {
+    } elseif ($opcion -eq "6") {
         Write-Host "Saliendo..." -ForegroundColor Green
     } else {
         Write-Host "Opcion invalida. Intenta de nuevo." -ForegroundColor Red
         Start-Sleep -Seconds 1
     }
-} while ($opcion -ne "4")
+} while ($opcion -ne "6")
