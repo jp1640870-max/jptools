@@ -1,11 +1,11 @@
 $rawBase = "https://raw.githubusercontent.com/jp1640870-max/jptools/master/scripts/"
 
 $opciones = @{
-    "1" = @{ nombre = "Inventario de hardware (copiar al portapapeles)"; archivo = "Get-HardwareInventory.ps1" }
-    "2" = @{ nombre = "Revisión CallCenter (herramientas + diagnostico)"; archivo = "Invoke-CallCenterReview.ps1" }
-    "3" = @{ nombre = "Instalar GLPI Agent"; archivo = "Install-GLPI-Agent.ps1" }
-    "4" = @{ nombre = "Instalar OCS Agent"; archivo = "Install-OCS-Agent.ps1" }
-    "5" = @{ nombre = "Diagnóstico completo de equipo (12 categorías)"; archivo = "Invoke-ComputerDiagnostic.ps1" }
+    "1" = @{ nombre = "Inventario de hardware (copiar al portapapeles)"; archivo = "Get-HardwareInventory.ps1"; elevado = $false }
+    "2" = @{ nombre = "Revisión CallCenter (herramientas + diagnostico)"; archivo = "Invoke-CallCenterReview.ps1"; elevado = $false }
+    "3" = @{ nombre = "Instalar GLPI Agent"; archivo = "Install-GLPI-Agent.ps1"; elevado = $true }
+    "4" = @{ nombre = "Instalar OCS Agent"; archivo = "Install-OCS-Agent.ps1"; elevado = $true }
+    "5" = @{ nombre = "Diagnóstico completo de equipo (12 categorías)"; archivo = "Invoke-ComputerDiagnostic.ps1"; elevado = $false }
 }
 
 do {
@@ -29,15 +29,29 @@ do {
     $opcion = Read-Host "Selecciona una opcion"
 
     if ($opciones.ContainsKey($opcion)) {
-        $url = $rawBase + $opciones[$opcion].archivo
-        Write-Host "`nEjecutando: $($opciones[$opcion].nombre)..." -ForegroundColor Yellow
-        try {
-            $script = Invoke-WebRequest -Uri $url -UseBasicParsing -ErrorAction Stop
-            iex $script.Content
-        } catch {
-            Write-Host "[ERROR] No se pudo descargar el script: $_" -ForegroundColor Red
-            Write-Host "Verifica la conexion a internet y la URL: $url" -ForegroundColor Gray
+        $opt = $opciones[$opcion]
+        Write-Host "`nEjecutando: $($opt.nombre)..." -ForegroundColor Yellow
+
+        if ($opt.elevado) {
+            $scriptPath = Join-Path $PSScriptRoot $opt.archivo
+            if (-not (Test-Path $scriptPath)) {
+                Write-Host "[ERROR] No se encontro el script local: $scriptPath" -ForegroundColor Red
+                Write-Host "Presiona cualquier tecla para volver al menu..." -ForegroundColor Gray
+                $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+                continue
+            }
+            Start-Process powershell -Verb RunAs "-ExecutionPolicy Bypass -NoExit -File `"$scriptPath`""
+        } else {
+            $url = $rawBase + $opt.archivo
+            try {
+                $script = Invoke-WebRequest -Uri $url -UseBasicParsing -ErrorAction Stop
+                iex $script.Content
+            } catch {
+                Write-Host "[ERROR] No se pudo descargar el script: $_" -ForegroundColor Red
+                Write-Host "Verifica la conexion a internet y la URL: $url" -ForegroundColor Gray
+            }
         }
+
         Write-Host "`nPresiona cualquier tecla para volver al menu..." -ForegroundColor Gray
         $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
     } elseif ($opcion -eq "6") {
