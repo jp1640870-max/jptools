@@ -145,6 +145,10 @@ $dllDest = Join-Path $agentDir "libcurl.dll"
 
 Copy-Item -Path $dllSrc -Destination $dllDest -Force
 
+Write-Host "Forzando SSL=0 (desactivar validacion de certificados)..." -ForegroundColor Cyan
+$iniPath = "$env:ProgramData\OCS Inventory NG\Agent\ocsinventory.ini"
+(Get-Content $iniPath) -replace 'SSL=1', 'SSL=0' -replace 'AuthRequired=1', 'AuthRequired=0' | Set-Content $iniPath
+
 Write-Host "Iniciando servicio OCS Inventory Service..." -ForegroundColor Cyan
 Start-Service -Name "OCS Inventory Service"
 
